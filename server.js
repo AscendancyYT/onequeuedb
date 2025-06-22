@@ -9,7 +9,7 @@ server.use(jsonServer.bodyParser);
 
 // CORS configuration
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Replace with frontend URL for production
+  res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500/'); // Replace with frontend URL for production
   res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
   if (req.method === 'OPTIONS') return res.status(200).end();
