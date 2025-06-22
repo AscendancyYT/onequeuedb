@@ -1,0 +1,12 @@
+{
+  "name": "onequeuedb",
+  "version": "1.0.0",
+  "description": "Hosted JSON Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "json-server": "^0.17.3"
+  }
+}
