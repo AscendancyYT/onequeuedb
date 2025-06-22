@@ -7,7 +7,13 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000', 'https://onequeuedb.onrender.com'];
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5500',
+  'http://localhost:5500',
+  'https://onequeuedb.onrender.com'
+];
 
 server.use((req, res, next) => {
   const origin = req.headers.origin;
@@ -19,6 +25,7 @@ server.use((req, res, next) => {
   if (req.method === 'OPTIONS') return res.sendStatus(200);
   next();
 });
+
 
 
 // Basic authentication middleware
