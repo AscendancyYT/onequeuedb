@@ -7,14 +7,19 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-// CORS configuration
+const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000', 'https://onequeuedb.onrender.com'];
+
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://onequeuedb.onrender.com');
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
   res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
-  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
   next();
 });
+
 
 // Basic authentication middleware
 const authUser = process.env.AUTH_USER || 'admin';
