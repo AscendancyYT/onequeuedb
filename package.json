@@ -1,10 +1,15 @@
 {
   "name": "onequeuedb",
   "version": "1.0.0",
+  "description": "JSON Server for One Queue app",
   "scripts": {
-    "start": "json-server --host 0.0.0.0 --port $PORT db.json"
+    "start": "node server.js"
   },
   "dependencies": {
-    "json-server": "^0.17.3"
+    "json-server": "^0.17.4",
+    "bcrypt": "^5.1.1"
+  },
+  "engines": {
+    "node": ">=14"
   }
 }
