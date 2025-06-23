@@ -30,6 +30,18 @@ server.use((req, res, next) => {
 const authUser = process.env.AUTH_USER || 'admin';
 const authPass = process.env.AUTH_PASS || '1234aziz4321';
 server.use((req, res, next) => {
+  const publicRoutes = [
+    { method: 'POST', path: /^\/users\/login$/ },
+    { method: 'POST', path: /^\/users$/ },
+    { method: 'GET', path: /^\/users(\?.*)?$/ }
+  ];
+
+  const isPublic = publicRoutes.some(route =>
+    req.method === route.method && route.path.test(req.path)
+  );
+
+  if (isPublic) return next();
+
   const auth = req.headers.authorization;
   if (auth === 'Basic ' + Buffer.from(`${authUser}:${authPass}`).toString('base64')) {
     next();
@@ -37,6 +49,7 @@ server.use((req, res, next) => {
     res.status(401).send('Unauthorized');
   }
 });
+
 
 server.use(async (req, res, next) => {
   if (req.method === 'POST' && (req.path === '/companies' || req.path === '/users')) {
