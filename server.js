@@ -27,10 +27,8 @@ server.use((req, res, next) => {
 });
 
 
-
-// Basic authentication middleware
 const authUser = process.env.AUTH_USER || 'admin';
-const authPass = process.env.AUTH_PASS || 'secret';
+const authPass = process.env.AUTH_PASS || '1234aziz4321';
 server.use((req, res, next) => {
   const auth = req.headers.authorization;
   if (auth === 'Basic ' + Buffer.from(`${authUser}:${authPass}`).toString('base64')) {
@@ -40,7 +38,6 @@ server.use((req, res, next) => {
   }
 });
 
-// Password hashing for POST requests
 server.use(async (req, res, next) => {
   if (req.method === 'POST' && (req.path === '/companies' || req.path === '/users')) {
     if (req.body.password) {
@@ -54,7 +51,6 @@ server.use(async (req, res, next) => {
   next();
 });
 
-// Custom login endpoints
 server.post('/companies/login', async (req, res) => {
   const { username, password } = req.body;
   const companies = router.db.get('companies').value();
